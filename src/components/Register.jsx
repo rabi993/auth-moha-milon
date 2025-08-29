@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
 
 
 const Register = () => {
-
+    const navigate = useNavigate();
     const { createUser } = useContext(AuthContext);
 
 
@@ -16,16 +16,17 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        console.log(name,email, password);
+        console.log(name, email, password);
 
         // Create User 
         createUser(email, password)
-        .then(result =>{
-            console.log(result.user);
-        })
-        .catch(error =>{
-            console.log('Error', error.message);
-        })
+            .then(result => {
+                console.log(result.user);
+                navigate('/login')
+            })
+            .catch(error => {
+                console.log('Error', error.message);
+            })
 
 
     }
@@ -55,7 +56,7 @@ const Register = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                            
+
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Register</button>
